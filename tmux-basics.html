@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Curious Cat &#8212; My Learnings</title>
+    <title>tmux Basics &#8212; My Learnings</title>
   
   
   
@@ -60,10 +60,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tmux-basics';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="NeoVim Basics" href="neovim-basics.html" />
+    <link rel="prev" title="NeoVim Basics" href="neovim-basics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -115,8 +115,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -136,7 +134,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -163,15 +161,15 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Curious Cat
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="neovim-basics.html">NeoVim Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tmux-basics.html">tmux Basics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">tmux Basics</a></li>
 </ul>
 
     </div>
@@ -248,7 +246,7 @@
       
       
       
-      <li><a href="https://github.com/shahbazsyed/notes/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/shahbazsyed/notes/issues/new?title=Issue%20on%20page%20%2Ftmux-basics.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,7 +276,7 @@
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/tmux-basics.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -352,7 +350,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Curious Cat</h1>
+    <h1>tmux Basics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -366,15 +364,115 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="curious-cat">
-<h1>Curious Cat<a class="headerlink" href="#curious-cat" title="Link to this heading">#</a></h1>
-<p>Notes on things I’m currently learning.</p>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="tmux-basics">
+<h1>tmux Basics<a class="headerlink" href="#tmux-basics" title="Link to this heading">#</a></h1>
+<p><strong>I. Core Concepts</strong></p>
+<ul class="simple">
+<li><p><strong>tmux Objects:</strong> tmux consists of three primary hierarchical objects:</p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="neovim-basics.html">NeoVim Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tmux-basics.html">tmux Basics</a></li>
+<li><p><strong>Sessions:</strong> The topmost layer, representing a collection of one or more windows managed as a single unit.</p>
+<ul>
+<li><p>You can have multiple sessions open, but you can only be attached to one session at a time.</p></li>
+<li><p>Each session has a single active window.</p></li>
 </ul>
-</div>
+</li>
+<li><p><strong>Windows:</strong> Represent a single view in tmux and can contain one or more panes.</p></li>
+<li><p><strong>Panes:</strong> Subdivisions within a window, allowing you to see multiple terminal outputs at once.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>II. Keybindings &amp; Prefix Key</strong></p>
+<ul class="simple">
+<li><p><strong>Prefix Key:</strong> All tmux commands require a prefix key. By default, this is <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span></code>.</p></li>
+</ul>
+<p><strong>III. Sessions</strong></p>
+<ul class="simple">
+<li><p><strong>Create a New Named Session &amp; Attach:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">new</span> <span class="pre">-s</span> <span class="pre">my-session</span></code>: Creates a new session named “my-session” and attaches to it.</p></li>
+</ul>
+</li>
+<li><p><strong>Attach to a Specific Session:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">attach</span> <span class="pre">-t</span> <span class="pre">my-session</span></code>: Attaches to an existing session named “my-session”.</p></li>
+</ul>
+</li>
+<li><p><strong>List Sessions:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">ls</span></code>: Shows all currently opened tmux sessions.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>IV. Windows</strong></p>
+<ul class="simple">
+<li><p><strong>Create a New Window:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">c</span></code>: Creates a new window and makes it the current active window in the current session.</p></li>
+</ul>
+</li>
+<li><p><strong>Switch Between Windows:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">2</span></code>…: Switch to the window with the corresponding number.</p></li>
+</ul>
+</li>
+<li><p><strong>Preview All Windows and Sessions:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">w</span></code>: Opens a preview of all windows from all sessions and allows you to attach to any of them by pressing <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p></li>
+</ul>
+</li>
+<li><p><strong>Rename Current Window:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">,</span></code>: Renames the current window to the name specified by the user.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>V. Panes</strong></p>
+<ul class="simple">
+<li><p><strong>Split Panes:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">%</span></code>: Splits the current window into two panes of equal width (vertically).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">&quot;</span></code>: Splits the current window into two panes of equal height (horizontally).</p></li>
+</ul>
+</li>
+<li><p><strong>Navigate Between Panes:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">&lt;arrow</span> <span class="pre">key&gt;</span></code>: Moves focus to the pane in the direction of the arrow key (up, down, left, right).</p></li>
+</ul>
+</li>
+<li><p><strong>Switch Between Panes by Number:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">q</span></code>: Shows numbers for all panes. Then, type the number of a pane to switch focus to it.</p></li>
+</ul>
+</li>
+<li><p><strong>Toggle Pane Zoom:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">z</span></code>: Makes the current pane occupy the full width of the terminal window. Repeating this shortcut restores the original layout.</p></li>
+</ul>
+</li>
+<li><p><strong>Convert Pane to a New Window:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">!</span></code>: Detaches the current pane and turns it into a new window.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>VI. Other Useful Commands</strong></p>
+<ul class="simple">
+<li><p><strong>Enter Command Mode:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">:</span></code>: Enters tmux command mode, where you can type tmux commands directly. For example, to rename the current window use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">:</span></code> and then type <code class="docutils literal notranslate"><span class="pre">rename-window</span> <span class="pre">&quot;new</span> <span class="pre">name&quot;</span></code> and press enter.</p></li>
+</ul>
+</li>
+<li><p><strong>Detach from Current Session</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">d</span></code>: Detaches from the current session, leaving it running in the background.</p></li>
+</ul>
+</li>
+<li><p><strong>Kill a Session</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">&amp;</span></code>: Kills the current session. You will be prompted to confirm the action.</p></li>
+</ul>
+</li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -407,14 +505,14 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="right-next"
+    <a class="left-prev"
        href="neovim-basics.html"
-       title="next page">
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">NeoVim Basics</p>
       </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

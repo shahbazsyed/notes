@@ -9,3 +9,4 @@ chapters:
   - file: dependency-types-npm
   - file: pnpm-basics
   - file: package-hoisting
+  - file: asyncio

@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Package Hoisting in node_modules &#8212; My Learnings</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'package-hoisting';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="pnpm Basics" href="pnpm-basics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My Learnings - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="My Learnings - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Curious Cat
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="neovim-basics.html">NeoVim Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tmux-basics.html">tmux Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependency-types-npm.html">npm Packages: Dependency Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pnpm-basics.html">pnpm Basics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Package Hoisting in node_modules</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/shahbazsyed/notes/issues/new?title=Issue%20on%20page%20%2Fpackage-hoisting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/package-hoisting.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Package Hoisting in node_modules</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="package-hoisting-in-node-modules">
+<h1>Package Hoisting in node_modules<a class="headerlink" href="#package-hoisting-in-node-modules" title="Link to this heading">#</a></h1>
+<p>Hoisting in the context of npm and yarn is a dependency management technique that attempts to flatten the <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> structure by moving compatible dependencies higher up in the directory tree (typically to the root <code class="docutils literal notranslate"><span class="pre">node_modules</span></code>). While it can offer benefits like reduced duplication, it also introduces the problem of “phantom dependencies,” where your code might unintentionally rely on dependencies that are not explicitly declared in your <code class="docutils literal notranslate"><span class="pre">package.json</span></code>.  Modern package managers are evolving to address the downsides of traditional hoisting and provide more robust and predictable dependency management.</p>
+<p><strong>What Hoisting Means (Generally):</strong></p>
+<p>At its core, “hoisting” means <strong>lifting or moving something higher up in a hierarchy or structure.</strong>  Think of a physical hoist that lifts heavy objects.  In a technical context, it often refers to reorganizing elements within a system to be more accessible or efficient at a higher level.</p>
+<p><strong>Hoisting in npm and Yarn (Package Manager Context):</strong></p>
+<p>In the context of <code class="docutils literal notranslate"><span class="pre">npm</span></code> and <code class="docutils literal notranslate"><span class="pre">yarn</span></code> (especially versions before <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">v8</span></code> and <code class="docutils literal notranslate"><span class="pre">yarn</span> <span class="pre">v2+</span> <span class="pre">Plug'n'Play/pnpm-like</span> <span class="pre">behaviour</span></code>), hoisting refers to a strategy used to manage dependencies in <code class="docutils literal notranslate"><span class="pre">node_modules</span></code>.  Let’s visualize the typical dependency structure <em>without</em> hoisting:</p>
+<p>Imagine you have a project with these dependencies:</p>
+<ul class="simple">
+<li><p><strong>Project A:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">package-b</span></code> (version 1.0.0)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">package-c</span></code> (version 2.0.0)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package-d</span></code> (version 3.0.0)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">package-c</span></code> (version 2.0.0)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Without hoisting, the <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> structure might look something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">node_modules</span><span class="o">/</span>
+  <span class="n">package</span><span class="o">-</span><span class="n">b</span><span class="o">/</span>
+    <span class="n">node_modules</span><span class="o">/</span>
+      <span class="n">package</span><span class="o">-</span><span class="n">c</span><span class="o">/</span>
+  <span class="n">package</span><span class="o">-</span><span class="n">d</span><span class="o">/</span>
+    <span class="n">node_modules</span><span class="o">/</span>
+      <span class="n">package</span><span class="o">-</span><span class="n">c</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Notice that <code class="docutils literal notranslate"><span class="pre">package-c</span></code> is installed <em>twice</em>, once inside <code class="docutils literal notranslate"><span class="pre">package-b</span></code>’s <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> and again inside <code class="docutils literal notranslate"><span class="pre">package-d</span></code>’s <code class="docutils literal notranslate"><span class="pre">node_modules</span></code>. This can lead to:</p>
+<ul class="simple">
+<li><p><strong>Duplication:</strong>  Wasted disk space and potentially longer installation times.</p></li>
+<li><p><strong>“Dependency Hell” Potential:</strong>  If different sub-dependencies require <em>conflicting</em> versions of a common dependency, it becomes more complex to manage.</p></li>
+</ul>
+<p><strong>Hoisting to the Rescue (Traditional npm/yarn hoisting):</strong></p>
+<p>Hoisting is a mechanism to <strong>flatten</strong> this nested dependency structure. Package managers try to “hoist” dependencies that are compatible to the <strong>root <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> directory</strong>.  Using the same example, with hoisting, the <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> structure might become:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>node_modules/
+  package-b/
+  package-c/  &lt;-- Hoisted to the root!
+  package-d/
+</pre></div>
+</div>
+<p>Now, <code class="docutils literal notranslate"><span class="pre">package-c</span></code> is only installed <strong>once</strong> in the root <code class="docutils literal notranslate"><span class="pre">node_modules</span></code>.  Both <code class="docutils literal notranslate"><span class="pre">package-b</span></code> and <code class="docutils literal notranslate"><span class="pre">package-d</span></code> can access it because Node.js’s module resolution algorithm will look up the directory tree until it finds <code class="docutils literal notranslate"><span class="pre">node_modules/package-c</span></code>.</p>
+<p><strong>Benefits of Hoisting:</strong></p>
+<ul class="simple">
+<li><p><strong>Reduced Duplication:</strong>  Saves disk space and potentially download times.</p></li>
+<li><p><strong>Simplified Dependency Tree:</strong> Makes the dependency structure conceptually flatter (though the actual file system might still have some nesting).</p></li>
+<li><p><strong>Potential Performance Improvements:</strong>  Faster module resolution in some cases, as Node.js might find modules closer to the root.</p></li>
+</ul>
+<p><strong>The Downside: “Phantom Dependencies” and the Example in Your Question</strong></p>
+<p>Your example highlights the key <strong>drawback</strong> of hoisting: <strong>“phantom dependencies.”</strong></p>
+<blockquote>
+<div><p>“As a result, source code has access to dependencies that are not added as project dependencies.”</p>
+</div></blockquote>
+<p>Because packages are hoisted to the root, your project’s code running in <code class="docutils literal notranslate"><span class="pre">node_modules/my-project/index.js</span></code> (for instance) can accidentally access dependencies that were hoisted from <em>sub-dependencies</em> of your project’s direct dependencies.</p>
+<p><strong>Example Breakdown:</strong></p>
+<p>Let’s say your <code class="docutils literal notranslate"><span class="pre">package.json</span></code> only lists <code class="docutils literal notranslate"><span class="pre">package-b</span></code> and <code class="docutils literal notranslate"><span class="pre">package-d</span></code> as direct dependencies.  You <em>haven’t</em> explicitly declared <code class="docutils literal notranslate"><span class="pre">package-c</span></code>.  However, because <code class="docutils literal notranslate"><span class="pre">package-b</span></code> and <code class="docutils literal notranslate"><span class="pre">package-d</span></code> both depend on <code class="docutils literal notranslate"><span class="pre">package-c</span></code>, and <code class="docutils literal notranslate"><span class="pre">package-c</span></code> is hoisted, your code in <code class="docutils literal notranslate"><span class="pre">my-project/index.js</span></code> <em>might</em> be able to import and use <code class="docutils literal notranslate"><span class="pre">package-c</span></code>:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// my-project/index.js</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">packageC</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;package-c&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// This might work due to hoisting, even if &#39;package-c&#39; isn&#39;t in my project&#39;s dependencies!</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Using package-c:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">packageC</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Why is this a problem?</strong></p>
+<ul class="simple">
+<li><p><strong>Fragile Dependencies:</strong> Your code becomes reliant on <code class="docutils literal notranslate"><span class="pre">package-c</span></code> <em>implicitly</em>. If:</p>
+<ul>
+<li><p>You update <code class="docutils literal notranslate"><span class="pre">package-b</span></code> or <code class="docutils literal notranslate"><span class="pre">package-d</span></code> and they no longer depend on <code class="docutils literal notranslate"><span class="pre">package-c</span></code>.</p></li>
+<li><p>The hoisting algorithm changes in a future version of npm/yarn and <code class="docutils literal notranslate"><span class="pre">package-c</span></code> is no longer hoisted to the root.</p></li>
+<li><p>You switch to a different package manager that doesn’t hoist in the same way (like pnpm or modern Yarn with Plug’n’Play).</p></li>
+</ul>
+</li>
+</ul>
+<p>…your code that <em>accidentally</em> relied on <code class="docutils literal notranslate"><span class="pre">package-c</span></code> will <strong>break</strong>.</p>
+<ul class="simple">
+<li><p><strong>Unclear Dependency Graph:</strong> It becomes harder to understand your project’s actual dependencies.  You might think you only depend on <code class="docutils literal notranslate"><span class="pre">package-b</span></code> and <code class="docutils literal notranslate"><span class="pre">package-d</span></code>, but you’re secretly relying on <code class="docutils literal notranslate"><span class="pre">package-c</span></code>.</p></li>
+</ul>
+<p><strong>Modern Package Managers and Hoisting (Evolving Landscape):</strong></p>
+<ul class="simple">
+<li><p><strong>npm v8+ and yarn v2+ (Plug’n’Play/pnpm-like):</strong> Modern versions of npm and yarn have moved away from traditional hoisting or have significantly changed their hoisting strategies. They often use more sophisticated methods (like symbolic links or content-addressable storage) to manage dependencies in a more deterministic and less “phantom dependency” prone way.</p></li>
+<li><p><strong>pnpm:</strong> pnpm is a package manager that was designed from the start to be non-hoisting (by default). It uses symbolic links to create a <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> structure where only explicitly declared dependencies are directly accessible at the root level.  This eliminates phantom dependencies but can create a more deeply nested <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> structure.</p></li>
+</ul>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pnpm-basics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pnpm Basics</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Shahbaz Syed
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

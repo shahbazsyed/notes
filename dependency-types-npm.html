@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>tmux Basics &#8212; My Learnings</title>
+    <title>npm Packages: Dependency Types &#8212; My Learnings</title>
   
   
   
@@ -60,11 +60,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'tmux-basics';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dependency-types-npm';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="npm Packages: Dependency Types" href="dependency-types-npm.html" />
-    <link rel="prev" title="NeoVim Basics" href="neovim-basics.html" />
+    <link rel="prev" title="tmux Basics" href="tmux-basics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -170,8 +169,8 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="neovim-basics.html">NeoVim Basics</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">tmux Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dependency-types-npm.html">npm Packages: Dependency Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tmux-basics.html">tmux Basics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">npm Packages: Dependency Types</a></li>
 </ul>
 
     </div>
@@ -220,7 +219,7 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/shahbazsyed/notes/issues/new?title=Issue%20on%20page%20%2Ftmux-basics.html&body=Your%20issue%20content%20here." target="_blank"
+<a href="https://github.com/shahbazsyed/notes/issues/new?title=Issue%20on%20page%20%2Fdependency-types-npm.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button"
    title="Open an issue"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -246,7 +245,7 @@
       
       
       
-      <li><a href="_sources/tmux-basics.md" target="_blank"
+      <li><a href="_sources/dependency-types-npm.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -320,7 +319,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>tmux Basics</h1>
+    <h1>npm Packages: Dependency Types</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -334,114 +333,82 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="tmux-basics">
-<h1>tmux Basics<a class="headerlink" href="#tmux-basics" title="Link to this heading">#</a></h1>
-<p><strong>I. Core Concepts</strong></p>
+  <section class="tex2jax_ignore mathjax_ignore" id="npm-packages-dependency-types">
+<h1>npm Packages: Dependency Types<a class="headerlink" href="#npm-packages-dependency-types" title="Link to this heading">#</a></h1>
+<p><strong>1. Project Dependencies (Regular Dependencies):</strong></p>
 <ul class="simple">
-<li><p><strong>tmux Objects:</strong> tmux consists of three primary hierarchical objects:</p>
-<ul>
-<li><p><strong>Sessions:</strong> The topmost layer, representing a collection of one or more windows managed as a single unit.</p>
-<ul>
-<li><p>You can have multiple sessions open, but you can only be attached to one session at a time.</p></li>
-<li><p>Each session has a single active window.</p></li>
+<li><p><strong>Purpose:</strong> These are the dependencies that your application <strong>needs to run in production</strong>. They are essential for the core functionality of your application. Without them, your application will likely not work or will have significant errors.</p></li>
+<li><p><strong>Usage:</strong> These are the packages that your application imports and uses directly in its runtime code.</p></li>
+<li><p><strong>Installation:</strong> When you deploy your application to a production environment, these dependencies <em>must</em> be installed.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pnpm</span></code> command:</strong>  <code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">add</span> <span class="pre">sax</span></code> (This adds <code class="docutils literal notranslate"><span class="pre">sax</span></code> to the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code> section of your <code class="docutils literal notranslate"><span class="pre">package.json</span></code>.)</p></li>
+<li><p><strong>Example:</strong>  Libraries like <code class="docutils literal notranslate"><span class="pre">express</span></code> (for creating web servers), <code class="docutils literal notranslate"><span class="pre">react</span></code> (for building user interfaces), <code class="docutils literal notranslate"><span class="pre">lodash</span></code> (for utility functions), and database drivers (e.g., <code class="docutils literal notranslate"><span class="pre">pg</span></code> for PostgreSQL) are typically project dependencies.</p></li>
 </ul>
-</li>
-<li><p><strong>Windows:</strong> Represent a single view in tmux and can contain one or more panes.</p></li>
-<li><p><strong>Panes:</strong> Subdivisions within a window, allowing you to see multiple terminal outputs at once.</p></li>
-</ul>
-</li>
-</ul>
-<p><strong>II. Keybindings &amp; Prefix Key</strong></p>
+<p><strong>2. <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code> (Development Dependencies):</strong></p>
 <ul class="simple">
-<li><p><strong>Prefix Key:</strong> All tmux commands require a prefix key. By default, this is <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span></code>.</p></li>
+<li><p><strong>Purpose:</strong> These are dependencies that are <strong>only needed during the development process</strong> and are <em>not</em> required for the application to run in production. They are used for tasks like building, testing, linting, formatting, and generating documentation.</p></li>
+<li><p><strong>Usage:</strong> These dependencies are used in your build scripts, test suites, linters, formatters, and other development-related tools.  Your <em>runtime</em> code does <em>not</em> directly import or use them.</p></li>
+<li><p><strong>Installation:</strong>  These dependencies are typically <em>not</em> installed in a production environment to reduce the size of the deployment and avoid unnecessary code. (However, some build/CI/CD pipelines might still install them to run tests before deployment).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pnpm</span></code> command:</strong> <code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">add</span> <span class="pre">-D</span> <span class="pre">sax</span></code> (This adds <code class="docutils literal notranslate"><span class="pre">sax</span></code> to the <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code> section of your <code class="docutils literal notranslate"><span class="pre">package.json</span></code>.)</p></li>
+<li><p><strong>Example:</strong>  Packages like <code class="docutils literal notranslate"><span class="pre">jest</span></code> (for testing), <code class="docutils literal notranslate"><span class="pre">eslint</span></code> (for linting), <code class="docutils literal notranslate"><span class="pre">prettier</span></code> (for code formatting), <code class="docutils literal notranslate"><span class="pre">webpack</span></code> (for bundling), <code class="docutils literal notranslate"><span class="pre">typescript</span></code> (for transpilation), and <code class="docutils literal notranslate"><span class="pre">babel</span></code> are typically <code class="docutils literal notranslate"><span class="pre">devDependencies</span></code>.</p></li>
 </ul>
-<p><strong>III. Sessions</strong></p>
+<p><strong>3. <code class="docutils literal notranslate"><span class="pre">optionalDependencies</span></code> (Optional Dependencies):</strong></p>
 <ul class="simple">
-<li><p><strong>Create a New Named Session &amp; Attach:</strong></p>
+<li><p><strong>Purpose:</strong> These are dependencies that your application can use if they are present, but it can still function correctly if they are not installed.  The application <em>must</em> be designed to handle the absence of these dependencies gracefully.</p></li>
+<li><p><strong>Usage:</strong>  You might use optional dependencies for features that are only available in certain environments or that provide enhanced functionality but are not strictly required.</p></li>
+<li><p><strong>Installation:</strong> The package manager will attempt to install optional dependencies, but if the installation fails (e.g., due to platform incompatibility or network issues), the installation process will <em>not</em> be interrupted.  The application should check at runtime if the optional dependency is available and adapt its behavior accordingly.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">pnpm</span></code> command:</strong> <code class="docutils literal notranslate"><span class="pre">pnpm</span> <span class="pre">add</span> <span class="pre">-O</span> <span class="pre">sax</span></code> (This adds <code class="docutils literal notranslate"><span class="pre">sax</span></code> to the <code class="docutils literal notranslate"><span class="pre">optionalDependencies</span></code> section of your <code class="docutils literal notranslate"><span class="pre">package.json</span></code>.)</p></li>
+<li><p><strong>Example:</strong></p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">new</span> <span class="pre">-s</span> <span class="pre">my-session</span></code>: Creates a new session named “my-session” and attaches to it.</p></li>
-</ul>
-</li>
-<li><p><strong>Attach to a Specific Session:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">attach</span> <span class="pre">-t</span> <span class="pre">my-session</span></code>: Attaches to an existing session named “my-session”.</p></li>
-</ul>
-</li>
-<li><p><strong>List Sessions:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">tmux</span> <span class="pre">ls</span></code>: Shows all currently opened tmux sessions.</p></li>
+<li><p>A library that provides platform-specific features (e.g., a package for interacting with a specific operating system’s APIs). If the package fails to install on a different OS, the application can still run without that functionality.</p></li>
+<li><p>An image processing library that is only needed for certain types of images.  If the library is not available, the application can skip processing those images or use a fallback method.</p></li>
+<li><p>A feature that integrates with an external service. If the external service is unavailable or the dependency to interact with it cannot be installed, the core functionality of the app can continue to work.</p></li>
 </ul>
 </li>
 </ul>
-<p><strong>IV. Windows</strong></p>
+<p><strong>Key Differences Summarized:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Project Dependencies</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">devDependencies</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">optionalDependencies</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Purpose</strong></p></td>
+<td><p>Essential runtime</p></td>
+<td><p>Development tools</p></td>
+<td><p>Optional features</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Required in Prod?</strong></p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No (can handle absence)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Installation Failure</strong></p></td>
+<td><p>Installation stops</p></td>
+<td><p>Installation continues</p></td>
+<td><p>Installation continues</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Impact if Missing</strong></p></td>
+<td><p>Application likely fails</p></td>
+<td><p>Development workflows impaired</p></td>
+<td><p>Reduced functionality, application still runs</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example Scenario:</strong></p>
+<p>Imagine you are building an image editing application:</p>
 <ul class="simple">
-<li><p><strong>Create a New Window:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">c</span></code>: Creates a new window and makes it the current active window in the current session.</p></li>
+<li><p><strong>Project Dependency:</strong> <code class="docutils literal notranslate"><span class="pre">react</span></code> (fundamental for the UI).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">devDependencies</span></code>:</strong> <code class="docutils literal notranslate"><span class="pre">jest</span></code> (for testing your components), <code class="docutils literal notranslate"><span class="pre">eslint</span></code> (for linting your code).  These are not needed when the application is deployed.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">optionalDependencies</span></code>:</strong> <code class="docutils literal notranslate"><span class="pre">node-canvas</span></code> (for advanced image manipulation). If <code class="docutils literal notranslate"><span class="pre">node-canvas</span></code> fails to install on a particular operating system, your application can still run, but it might not be able to perform some of the more advanced image editing functions.  You would need to write code to check if <code class="docutils literal notranslate"><span class="pre">node-canvas</span></code> is available at runtime and use a fallback strategy if it’s not.</p></li>
 </ul>
-</li>
-<li><p><strong>Switch Between Windows:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">2</span></code>…: Switch to the window with the corresponding number.</p></li>
-</ul>
-</li>
-<li><p><strong>Preview All Windows and Sessions:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">w</span></code>: Opens a preview of all windows from all sessions and allows you to attach to any of them by pressing <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p></li>
-</ul>
-</li>
-<li><p><strong>Rename Current Window:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">,</span></code>: Renames the current window to the name specified by the user.</p></li>
-</ul>
-</li>
-</ul>
-<p><strong>V. Panes</strong></p>
+<p><strong>Important Considerations:</strong></p>
 <ul class="simple">
-<li><p><strong>Split Panes:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">%</span></code>: Splits the current window into two panes of equal width (vertically).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">&quot;</span></code>: Splits the current window into two panes of equal height (horizontally).</p></li>
-</ul>
-</li>
-<li><p><strong>Navigate Between Panes:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">&lt;arrow</span> <span class="pre">key&gt;</span></code>: Moves focus to the pane in the direction of the arrow key (up, down, left, right).</p></li>
-</ul>
-</li>
-<li><p><strong>Switch Between Panes by Number:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">q</span></code>: Shows numbers for all panes. Then, type the number of a pane to switch focus to it.</p></li>
-</ul>
-</li>
-<li><p><strong>Toggle Pane Zoom:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">z</span></code>: Makes the current pane occupy the full width of the terminal window. Repeating this shortcut restores the original layout.</p></li>
-</ul>
-</li>
-<li><p><strong>Convert Pane to a New Window:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">!</span></code>: Detaches the current pane and turns it into a new window.</p></li>
-</ul>
-</li>
-</ul>
-<p><strong>VI. Other Useful Commands</strong></p>
-<ul class="simple">
-<li><p><strong>Enter Command Mode:</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">:</span></code>: Enters tmux command mode, where you can type tmux commands directly. For example, to rename the current window use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">:</span></code> and then type <code class="docutils literal notranslate"><span class="pre">rename-window</span> <span class="pre">&quot;new</span> <span class="pre">name&quot;</span></code> and press enter.</p></li>
-</ul>
-</li>
-<li><p><strong>Detach from Current Session</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">d</span></code>: Detaches from the current session, leaving it running in the background.</p></li>
-</ul>
-</li>
-<li><p><strong>Kill a Session</strong></p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">b</span> <span class="pre">&amp;</span></code>: Kills the current session. You will be prompted to confirm the action.</p></li>
-</ul>
-</li>
+<li><p><strong>Code Splitting:</strong> For web applications, you might use code splitting to load optional features (and their associated dependencies) on demand.  This can be a more sophisticated way to manage optional functionality than simply relying on <code class="docutils literal notranslate"><span class="pre">optionalDependencies</span></code>, but it’s more complex to set up.</p></li>
+<li><p><strong>Runtime Checks:</strong> When using <code class="docutils literal notranslate"><span class="pre">optionalDependencies</span></code>, it’s crucial to check at runtime if the dependency is available before using it.  Use <code class="docutils literal notranslate"><span class="pre">try...catch</span></code> blocks or other techniques to handle the case where the dependency is not present.</p></li>
 </ul>
 </section>
 
@@ -476,22 +443,13 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="neovim-basics.html"
+       href="tmux-basics.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">NeoVim Basics</p>
+        <p class="prev-next-title">tmux Basics</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="dependency-types-npm.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">npm Packages: Dependency Types</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

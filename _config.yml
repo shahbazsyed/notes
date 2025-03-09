@@ -4,6 +4,7 @@
 title: My Learnings
 author: Shahbaz Syed
 logo: logo.png
+copyright: "2025"
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -30,3 +31,9 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: false
+
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default! See here: https://jupyterbook.org/en/stable/customize/config.html
+    - html_image

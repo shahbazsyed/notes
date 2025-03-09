@@ -7,3 +7,4 @@ chapters:
   - file: neovim-basics
   - file: tmux-basics
   - file: dependency-types-npm
+  - file: pnpm-basics

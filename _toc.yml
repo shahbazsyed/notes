@@ -8,3 +8,4 @@ chapters:
   - file: tmux-basics
   - file: dependency-types-npm
   - file: pnpm-basics
+  - file: package-hoisting

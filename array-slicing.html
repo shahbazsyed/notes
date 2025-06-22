@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Curious Cat &#8212; My Learnings</title>
+    <title>Array Indexing and Slicing in Python &#8212; My Learnings</title>
   
   
   
@@ -60,10 +60,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'array-slicing';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="NeoVim Basics" href="neovim-basics.html" />
+    <link rel="prev" title="Async IO in Python" href="asyncio.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -115,8 +115,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -136,7 +134,7 @@
     
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -163,20 +161,20 @@
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Curious Cat
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="neovim-basics.html">NeoVim Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tmux-basics.html">tmux Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependency-types-npm.html">npm Packages: Dependency Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pnpm-basics.html">pnpm Basics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="package-hoisting.html">Package Hoisting in node_modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="asyncio.html">Async IO in Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="array-slicing.html">Array Indexing and Slicing in Python</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Array Indexing and Slicing in Python</a></li>
 </ul>
 
     </div>
@@ -225,7 +223,7 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/shahbazsyed/notes/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+<a href="https://github.com/shahbazsyed/notes/issues/new?title=Issue%20on%20page%20%2Farray-slicing.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button"
    title="Open an issue"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -251,7 +249,7 @@
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/array-slicing.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -314,7 +312,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -325,11 +325,21 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Curious Cat</h1>
+    <h1>Array Indexing and Slicing in Python</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-extract-elements">Steps to extract elements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -339,20 +349,176 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="curious-cat">
-<h1>Curious Cat<a class="headerlink" href="#curious-cat" title="Link to this heading">#</a></h1>
-<p>Notes on things I’m currently learning.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="neovim-basics.html">NeoVim Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tmux-basics.html">tmux Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dependency-types-npm.html">npm Packages: Dependency Types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pnpm-basics.html">pnpm Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="package-hoisting.html">Package Hoisting in node_modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="asyncio.html">Async IO in Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="array-slicing.html">Array Indexing and Slicing in Python</a></li>
-</ul>
+  <section id="array-indexing-and-slicing-in-python">
+<h1>Array Indexing and Slicing in Python<a class="headerlink" href="#array-indexing-and-slicing-in-python" title="Link to this heading">#</a></h1>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">array[start:stop:step]</span></code></p>
+</section>
+<section id="steps-to-extract-elements">
+<h2>Steps to extract elements<a class="headerlink" href="#steps-to-extract-elements" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Resolve the <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code> indices. If negative values are provided, first convert them into positive values by subtracting them from the length of the sequence. This ensures that all index calculations are based on positive values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">70</span><span class="p">]</span>
+<span class="n">my_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># resolving values for start and stop</span>
+<span class="n">start</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">7</span><span class="o">-</span><span class="mi">1</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">stop</span>  <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">=</span> <span class="mi">7</span><span class="o">-</span><span class="mi">4</span> <span class="o">=</span> <span class="mi">3</span>
+
+</pre></div>
 </div>
+</li>
+<li><p>Compare <code class="docutils literal notranslate"><span class="pre">start</span></code>  and <code class="docutils literal notranslate"><span class="pre">stop</span></code> values to identify the step <strong>direction</strong>.</p>
+<ol class="arabic simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">start</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">stop</span></code>, it means that the stop point is <strong>ahead of us</strong> and to reach it we can move only from left to right (<strong>forward</strong>)</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">start</span></code> &gt; <code class="docutils literal notranslate"><span class="pre">stop</span></code>, it means that the stop point is <strong>behind us</strong> and to reach it we can move only from right to left (<strong>backwards</strong>)</p></li>
+</ol>
+</li>
+<li><p>Based on the above calculated direction, check if <code class="docutils literal notranslate"><span class="pre">step</span></code> is positive or negative</p>
+<ol class="arabic simple">
+<li><p>If <strong>direction</strong> is <strong>forward</strong> AND <code class="docutils literal notranslate"><span class="pre">step</span></code> is <strong>negative</strong> then return <strong>empty list</strong></p></li>
+<li><p>If <strong>direction</strong> is <strong>backwards</strong> AND <code class="docutils literal notranslate"><span class="pre">step</span></code> is positive then return <strong>empty list</strong></p></li>
+</ol>
+</li>
+<li><p>If valid values are found for <strong>direction</strong> and <code class="docutils literal notranslate"><span class="pre">step</span></code>, move accordingly to extract the elements.</p>
+<ol class="arabic simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">stop</span></code> is <strong>specified</strong> then it is <strong>exclusive</strong>, which means we can actually extract elements <strong>only until the one before the stop index</strong></p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">stop</span></code> is <strong>not specified</strong>, then depending on the <strong>direction</strong> (forward or backwards), the <strong>first/last element of the sequence can also be extracted.</strong></p></li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>Table summarising the various combinations of start, stop, and step values in Python slicing, along with the direction of movement and the resulting values:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Start Index</p></th>
+<th class="head"><p>Stop Index</p></th>
+<th class="head"><p>Step (Sign)</p></th>
+<th class="head"><p>Start Specified?</p></th>
+<th class="head"><p>Stop Specified?</p></th>
+<th class="head"><p>Direction</p></th>
+<th class="head"><p>Result</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Positive</p></td>
+<td><p>Positive</p></td>
+<td><p>Positive (+)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Forward</p></td>
+<td><p>Selected Values</p></td>
+</tr>
+<tr class="row-odd"><td><p>Positive</p></td>
+<td><p>Positive</p></td>
+<td><p>Negative (-)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Backward</p></td>
+<td><p>Empty List (if start &gt;= stop)</p></td>
+</tr>
+<tr class="row-even"><td><p>Positive</p></td>
+<td><p>Omitted</p></td>
+<td><p>Positive (+)</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Forward</p></td>
+<td><p>Selected Values (to end)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Positive</p></td>
+<td><p>Omitted</p></td>
+<td><p>Negative (-)</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Backward</p></td>
+<td><p>Selected Values (to beginning)</p></td>
+</tr>
+<tr class="row-even"><td><p>Negative</p></td>
+<td><p>Positive</p></td>
+<td><p>Positive (+)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Forward</p></td>
+<td><p>Selected Values</p></td>
+</tr>
+<tr class="row-odd"><td><p>Negative</p></td>
+<td><p>Positive</p></td>
+<td><p>Negative (-)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Backward</p></td>
+<td><p>Empty List (if start &gt;= stop)</p></td>
+</tr>
+<tr class="row-even"><td><p>Negative</p></td>
+<td><p>Omitted</p></td>
+<td><p>Positive (+)</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Forward</p></td>
+<td><p>Selected Values (to end)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Negative</p></td>
+<td><p>Omitted</p></td>
+<td><p>Negative (-)</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Backward</p></td>
+<td><p>Selected Values (to beginning)</p></td>
+</tr>
+<tr class="row-even"><td><p>Omitted</p></td>
+<td><p>Positive</p></td>
+<td><p>Positive (+)</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Forward</p></td>
+<td><p>Selected Values (from beginning)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Omitted</p></td>
+<td><p>Positive</p></td>
+<td><p>Negative (-)</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Backward</p></td>
+<td><p>Empty List</p></td>
+</tr>
+<tr class="row-even"><td><p>Omitted</p></td>
+<td><p>Omitted</p></td>
+<td><p>Positive (+)</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Forward</p></td>
+<td><p>All Values</p></td>
+</tr>
+<tr class="row-odd"><td><p>Omitted</p></td>
+<td><p>Omitted</p></td>
+<td><p>Negative (-)</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Backward</p></td>
+<td><p>All Values (Reversed)</p></td>
+</tr>
+<tr class="row-even"><td><p>Any</p></td>
+<td><p>Any</p></td>
+<td><p>Zero (0)</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>-</p></td>
+<td><p>Empty List</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Key:</strong></p>
+<ul class="simple">
+<li><p><strong>Start Index / Stop Index:</strong>  Positive, Negative, or Omitted (meaning the default is used).</p></li>
+<li><p><strong>Step (Sign):</strong>  Positive (+) or Negative (-).</p></li>
+<li><p><strong>Start/Stop Specified?:</strong> Yes or No.</p></li>
+<li><p><strong>Direction:</strong> Forward (left to right) or Backward (right to left).</p></li>
+<li><p><strong>Result:</strong> Selected Values (a portion of the sequence) or Empty List (<code class="docutils literal notranslate"><span class="pre">[]</span></code>).</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -385,14 +551,14 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="right-next"
-       href="neovim-basics.html"
-       title="next page">
+    <a class="left-prev"
+       href="asyncio.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">NeoVim Basics</p>
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Async IO in Python</p>
       </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -400,6 +566,24 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax">Syntax</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-extract-elements">Steps to extract elements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
